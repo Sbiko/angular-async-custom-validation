@@ -1,0 +1,31 @@
+<div>
+  <h1>
+    Sign up form
+  </h1>
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">
+        User:
+        <input name="name" type="text" formControlName="name" maxlength="30" size="30">
+        <p *ngIf="name.status === 'PENDING'">PENDING</p>
+        <p class="error-message" *ngIf="name.invalid && name.hasError('required') && (name.dirty || name.touched)">User name is required</p>
+        <p class="error-message" *ngIf="name.invalid && name.hasError('maxlength') && (name.dirty || name.touched)">Maximum length of user name is 30</p>
+        <p class="error-message" *ngIf="name.invalid && name.hasError('taken') && (name.dirty || name.touched)">{{name.value}} is taken</p>
+      </label>
+    </div>
+    <div>
+      <label for="email">
+        Email:
+        <input name="email" type="email" formControlName="email" size="50">
+        <p *ngIf="email.status === 'PENDING'">PENDING</p>
+        <p class="error-message" *ngIf="email.invalid && email.hasError('required') && (email.dirty || email.touched)">Email is required</p>
+        <p class="error-message" *ngIf="email.invalid && email.hasError('email') && (email.dirty || email.touched)">Email is in invalid format</p>
+        <p class="error-message" *ngIf="email.invalid && email.hasError('taken') && (email.dirty || email.touched)">{{email.value}} is taken</p>
+      </label>
+    </div>
+    <div>
+      <button type="submit" [disabled]="signupForm.invalid || email.status === 'PENDING' || name.status === 'PENDING'" >Sign Up</button>
+    </div>
+  </form>
+  <p>{{text}}</p>
+</div>
